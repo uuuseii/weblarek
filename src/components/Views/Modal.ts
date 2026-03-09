@@ -30,7 +30,7 @@ export class Modal extends Component<ModalData> {
 
     this.container.addEventListener("click", (event) => {
       if (event.target === this.container) {
-        this.events.emit(AppEvents.ModalClose);
+        this.close();
       }
     });
   }
@@ -41,7 +41,6 @@ export class Modal extends Component<ModalData> {
 
   open(): void {
     this.container.classList.add("modal_active");
-    document.body.style.overflow = "hidden";
   }
 
   close(): void {

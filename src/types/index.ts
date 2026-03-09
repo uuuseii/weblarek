@@ -94,3 +94,9 @@ export interface ContactsFormData {
   phone: string;
   email: string;
 }
+
+export interface ICardActions {
+    onClick?: (event: MouseEvent) => void;
+    onAddToCart?: (event: MouseEvent) => void;
+    onDelete?: (event: MouseEvent) => void;
+}

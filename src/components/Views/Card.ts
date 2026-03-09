@@ -5,7 +5,6 @@ import { Component } from "../base/Component";
 export abstract class Card<T extends TCardData> extends Component<T> {
   protected titleElement: HTMLElement;
   protected priceElement: HTMLElement;
-  protected _id: string = "";
 
   constructor(container: HTMLElement) {
     super(container);
@@ -30,6 +29,6 @@ export abstract class Card<T extends TCardData> extends Component<T> {
   }
 
   set id(value: string) {
-    this._id = value;
+    this.container.dataset.id = value;
   }
 }

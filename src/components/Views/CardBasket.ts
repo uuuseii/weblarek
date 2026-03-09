@@ -1,8 +1,6 @@
-import { TCardBasket } from "../../types";
+import { TCardBasket, ICardActions } from "../../types";
 import { ensureElement } from "../../utils/utils";
 import { Card } from "./Card";
-import { IEvents } from "../base/Events";
-import { AppEvents } from "../../types/events";
 
 export class CardBasket extends Card<TCardBasket> {
   protected basketItemIndexElement: HTMLElement;
@@ -10,7 +8,7 @@ export class CardBasket extends Card<TCardBasket> {
 
   constructor(
     container: HTMLElement,
-    protected events: IEvents,
+    actions?: ICardActions,
   ) {
     super(container);
 
@@ -23,10 +21,9 @@ export class CardBasket extends Card<TCardBasket> {
       this.container,
     );
 
-    this.buttonElement.addEventListener("click", (event) => {
-      event.stopPropagation();
-      this.events.emit(AppEvents.BasketItemDelete, { id: this._id });
-    });
+    if (actions?.onDelete) {
+      this.buttonElement.addEventListener('click', actions.onDelete);
+    }
   }
 
   set index(value: number) {

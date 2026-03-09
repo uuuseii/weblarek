@@ -1,8 +1,6 @@
-import { CategoryKey, TCardCatalog } from "../../types";
-import { AppEvents } from "../../types/events";
+import { CategoryKey, TCardCatalog, ICardActions } from "../../types";
 import { categoryMap } from "../../utils/constants";
 import { ensureElement } from "../../utils/utils";
-import { IEvents } from "../base/Events";
 import { Card } from "./Card";
 
 export class CardCatalog extends Card<TCardCatalog> {
@@ -11,7 +9,7 @@ export class CardCatalog extends Card<TCardCatalog> {
 
   constructor(
     container: HTMLElement,
-    protected events: IEvents,
+    actions?: ICardActions,
   ) {
     super(container);
 
@@ -24,10 +22,9 @@ export class CardCatalog extends Card<TCardCatalog> {
       this.container,
     );
 
-    this.container.addEventListener("click", () => {
-      console.log(this._id);
-      this.events.emit(AppEvents.ProductCardSelect, { id: this._id });
-    });
+    if (actions?.onClick) {
+      this.container.addEventListener("click", actions.onClick);
+    };
   }
 
   set image(value: string) {
